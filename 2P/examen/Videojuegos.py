@@ -1,4 +1,4 @@
-""" 
+"""
 Problema a resolver:
 Una empresa de videojuegos está desarrollando un FPSG (First Person Shooting Game). Para implementar los personajes artificiales del juego, el jefe del proyecto, ex estudiante, ha pensado que podría ser interesante e innovador utilizar una red neuronal. Dicha red tendía que implementar el algoritmo de control de los personajes artificiales, usando los siguientes inputs:
 Salud: Débil, Medio y Fuerte
@@ -16,44 +16,40 @@ Esta aplicación de red neuronal deberá de entrenar, predecir y aprender (tenie
 Nota:
 El número de iteraciones será de 120
 El número de registros de entrenamiento es de 150
-El número de registros para su evaluación es de 5 
+El número de registros para su evaluación es de 5
 """
+
+from pathlib import Path
 
 import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense
 
-# Cargar los datos del archivo CSV
-dataset = np.loadtxt("2P\examen\datos.csv", delimiter=",")
+DATA_PATH = Path(__file__).parent / "datos.csv"
 
-# Dividir los datos en características (X) y etiquetas (Y)
-X = dataset[:, :4]  # Características: Salud, Cuchillo, Arma, Enemigos
-Y = dataset[:, 4]   # Etiquetas: Acciones
+dataset = np.loadtxt(DATA_PATH, delimiter=",")
 
-# Definir el modelo de la red neuronal
+X = dataset[:, :4]
+Y = dataset[:, 4]
+
 model = Sequential()
-model.add(Dense(12, input_dim=4, activation='relu'))# 4 entradas, 12 neuronas en la capa oculta
-model.add(Dense(8, activation='relu'))# 8 neuronas en la capa oculta
-model.add(Dense(4, activation='softmax'))# 4 salidas
+model.add(Dense(12, input_dim=4, activation="relu"))
+model.add(Dense(8, activation="relu"))
+model.add(Dense(4, activation="softmax"))
 
-# Compilar el modelo
-model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.compile(loss="sparse_categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 
-# Ajustamos el modelo
 model.fit(X, Y, epochs=120, batch_size=10)
 
-# Realizar predicciones con 5 registros para evaluación
 predicciones = model.predict(X[:5])
 
-# Definir el diccionario de acciones
 acciones_dict = {
     0: "Esconderse",
     1: "Escapar",
     2: "Andar",
-    3: "Atacar"
+    3: "Atacar",
 }
 
-# Aplicar umbral para las predicciones
 umbral = 0.75
 acciones_predichas = []
 
@@ -64,6 +60,5 @@ for i, prediccion in enumerate(predicciones):
     else:
         acciones_predichas.append(("No predicho (umbral no alcanzado)", acciones_dict[int(Y[i])]))
 
-# Imprimir las acciones predichas junto con las acciones reales
 for idx, (predicha, real) in enumerate(acciones_predichas, 1):
     print(f"Registro {idx}: Acción predicha: {predicha}, Acción real en el dataset: {real}")
