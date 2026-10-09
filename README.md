@@ -6,6 +6,18 @@ Repositorio refactorizado a estructura production-grade: rutas relativas con `pa
 
 ---
 
+## Versión actualizada
+
+Las prácticas de este repositorio ya tienen una versión actualizada: **[si181.diegozamora.dev](https://si181.diegozamora.dev)**
+
+| Práctica | Código original | Versión actualizada |
+|----------|-----------------|---------------------|
+| Piedra, papel o tijera | `2P/redNeuronal_PiedraPapelTijera.PY` | [si181.diegozamora.dev/piedra-papel-tijera](https://si181.diegozamora.dev/piedra-papel-tijera) |
+| Predicción de diabetes | `2P/diabetes/` | [si181.diegozamora.dev/diabetes](https://si181.diegozamora.dev/diabetes) |
+| Análisis de sentimientos | `3P/sentimientos/` | [si181.diegozamora.dev/sentimiento](https://si181.diegozamora.dev/sentimiento) |
+
+---
+
 ## Estructura
 
 ```
